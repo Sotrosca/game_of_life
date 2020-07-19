@@ -5,13 +5,16 @@ class GameLogic():
 	def __init__(self, width, heigth):
 		self.width = width
 		self.heigth = heigth
-		self.boardState = np.random.randint(2, size=(heigth, width))
-#		self.boardState = np.zeros((width, heigth), dtype=int)
+#		self.boardState = np.random.randint(2, size=(heigth, width))
+		self.boardState = np.zeros((width, heigth), dtype=int)
 #		self.boardState[20:28, 80] = 1
 		self.newBoardState = copy.deepcopy(self.boardState)
 
 	def isCellAlive(self, x, y):
 		return self.boardState[x, y] == 1
+
+	def changeCellState(self, x, y):
+		self.boardState[x, y] = int(not self.boardState[x, y])
 
 	def computeNeighboursAmount(self, x, y):
 		neighbours = 0
