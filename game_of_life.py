@@ -1,15 +1,17 @@
-import sys, pygame, time
+import sys, pygame
 import GameLogic
 
 pygame.init()
 
-size = width, height = 800, 800
+size = width, height = 1200, 600
 
-cellSize = 20
+cellSize = 60
 
 cells_x = width // cellSize
 cells_y = height // cellSize
- 
+
+print(cells_y)
+
 backgroundColor = 25, 25, 25
 
 screen = pygame.display.set_mode(size)
@@ -40,14 +42,16 @@ while True:
 
 			game.changeCellState(mouseCellX, mouseCelly)
 
+			print(game.boardState)
+
 
 
 	screen.fill(backgroundColor)
 
 	# Render game and calculate new state if the game is not paused
-	for i in range(cells_y):
+	for i in range(cells_x):
 
-		for j in range(cells_x):
+		for j in range(cells_y):
 			if not paused:
 				game.applyGameRule(i, j)
 
