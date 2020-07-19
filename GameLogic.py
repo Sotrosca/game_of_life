@@ -5,7 +5,7 @@ class GameLogic():
 	def __init__(self, width, heigth):
 		self.width = width
 		self.heigth = heigth
-		self.boardState = np.random.randint(2, size=(width, heigth))
+		self.boardState = np.random.randint(2, size=(heigth, width))
 #		self.boardState = np.zeros((width, heigth), dtype=int)
 #		self.boardState[20:28, 80] = 1
 		self.newBoardState = copy.deepcopy(self.boardState)
@@ -18,8 +18,8 @@ class GameLogic():
 
 		for i in range(-1, 2):
 			for j in range(-1, 2):
-				neighbours += self.boardState[(x + i) % self.width,
-											  (y + j) % self.heigth]
+				neighbours += self.boardState[(x + i) % self.heigth,
+											  (y + j) % self.width]
 
 		neighbours -= self.boardState[x, y]
 

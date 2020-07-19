@@ -27,11 +27,11 @@ while True:
 
 		for j in range(cells_y):
 
-			game.applyGameRule(j, i)
+			game.applyGameRule(i, j)
 
 			rect = pygame.Rect((i * cellSize, j * cellSize), (cellSize + 1, cellSize + 1))
 
-			if game.isCellAlive(j, i):
+			if game.isCellAlive(i, j):
 				pygame.draw.rect(screen, (175, 175, 175), rect, 0)
 			else:
 				pygame.draw.rect(screen, (20, 20, 20), rect, 1)
