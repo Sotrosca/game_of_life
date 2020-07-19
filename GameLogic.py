@@ -5,8 +5,8 @@ class GameLogic():
 	def __init__(self, width, heigth):
 		self.width = width
 		self.heigth = heigth
-		self.boardState = np.random.randint(2, size=(heigth, width))
-#		self.boardState = np.zeros((width, heigth), dtype=int)
+#		self.boardState = np.random.randint(2, size=(heigth, width))
+		self.boardState = np.zeros((heigth, width), dtype=int)
 #		self.boardState[20:28, 80] = 1
 		self.newBoardState = copy.deepcopy(self.boardState)
 
@@ -32,7 +32,9 @@ class GameLogic():
 		neighboursAmount = self.computeNeighboursAmount(y, x)
 		if neighboursAmount == 3:
 			self.newBoardState[y, x] = 1
-		elif neighboursAmount != 2:
+		elif self.isCellAlive(x, y) and neighboursAmount == 2:
+			self.newBoardState[y, x] = 1
+		else:
 			self.newBoardState[y, x] = 0
 
 	def updateBoardState(self):

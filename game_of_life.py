@@ -5,12 +5,10 @@ pygame.init()
 
 size = width, height = 1200, 600
 
-cellSize = 60
+cellSize = 10
 
 cells_x = width // cellSize
 cells_y = height // cellSize
-
-print(cells_y)
 
 backgroundColor = 25, 25, 25
 
@@ -20,8 +18,15 @@ game = GameLogic.GameLogic(cells_x, cells_y)
 
 
 paused = False
+oneStep = False
+
 #game loop
 while True:
+
+	if oneStep:
+		paused = True
+		oneStep = False
+
 	for event in pygame.event.get():
 
 		if event.type == pygame.QUIT: sys.exit()
@@ -29,6 +34,9 @@ while True:
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_p:
 				paused = not paused
+			if event.key == pygame.K_s:
+				oneStep = True
+				paused = False
 
 
 		mouseClick = pygame.mouse.get_pressed()
@@ -41,8 +49,6 @@ while True:
 			mouseCelly = mousePosition[1] // cellSize
 
 			game.changeCellState(mouseCellX, mouseCelly)
-
-			print(game.boardState)
 
 
 
