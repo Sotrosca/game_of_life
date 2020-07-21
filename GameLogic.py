@@ -7,7 +7,7 @@ class GameLogic():
 		self.heigth = heigth
 #		self.boardState = np.random.randint(2, size=(heigth, width))
 		self.boardState = np.zeros((heigth, width), dtype=int)
-		self.boardState[20:28, 80] = 1
+#		self.boardState[20:28, 80] = 1
 		self.newBoardState = copy.deepcopy(self.boardState)
 
 	def isCellAlive(self, x, y):

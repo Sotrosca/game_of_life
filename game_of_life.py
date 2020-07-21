@@ -1,17 +1,24 @@
 import sys, pygame
 import GameLogic
 
+print("Commands:")
+print("--- p -> Pause ---")
+print("--- s -> One step ---")
+print("--- Click cells to edit them ---")
+print("--- Enjoy !! ---")
+
 pygame.init()
 
-size = width, height = 1200, 600
+size = width, height = 800, 600
 
-cellSize = 10
+cellSize = 20
 
 cells_x = width // cellSize
 cells_y = height // cellSize
 
 backgroundColor = 25, 25, 25
 
+title = pygame.display.set_caption("Game of Life")
 screen = pygame.display.set_mode(size)
 
 game = GameLogic.GameLogic(cells_x, cells_y)
@@ -20,6 +27,7 @@ game = GameLogic.GameLogic(cells_x, cells_y)
 paused = True
 oneStep = False
 lastCellClicked = (-1, -1)
+
 
 #game loop
 while True:
@@ -35,6 +43,7 @@ while True:
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_p:
 				paused = not paused
+				print("The game is paused, press p to continue") if paused else print("Game running")
 			if event.key == pygame.K_s:
 				oneStep = True
 				paused = False
@@ -75,7 +84,7 @@ while True:
 
 	pygame.display.flip()
 
-	pygame.time.delay(5)
+	pygame.time.delay(10)
 
 	if not paused: 
 		game.updateBoardState()
