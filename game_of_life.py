@@ -17,8 +17,9 @@ screen = pygame.display.set_mode(size)
 game = GameLogic.GameLogic(cells_x, cells_y)
 
 
-paused = False
+paused = True
 oneStep = False
+lastCellClicked = (-1, -1)
 
 #game loop
 while True:
@@ -37,20 +38,23 @@ while True:
 			if event.key == pygame.K_s:
 				oneStep = True
 				paused = False
+		if event.type == pygame.MOUSEBUTTONUP:
+			lastCellClicked = (-1, -1)
 
+	mouseClick = pygame.mouse.get_pressed()
+		
+	if mouseClick[0] == 1:
 
-		mouseClick = pygame.mouse.get_pressed()
-			
-		if mouseClick[0] == 1:
+		mousePosition = pygame.mouse.get_pos()
 
-			mousePosition = pygame.mouse.get_pos()
+		mouseCellX = mousePosition[0] // cellSize
+		mouseCellY = mousePosition[1] // cellSize
 
-			mouseCellX = mousePosition[0] // cellSize
-			mouseCelly = mousePosition[1] // cellSize
+		if lastCellClicked[0] != mouseCellX or lastCellClicked[1] != mouseCellY:
 
-			game.changeCellState(mouseCellX, mouseCelly)
+			game.changeCellState(mouseCellX, mouseCellY)
 
-
+			lastCellClicked = (mouseCellX, mouseCellY)
 
 	screen.fill(backgroundColor)
 
@@ -71,7 +75,7 @@ while True:
 
 	pygame.display.flip()
 
-	pygame.time.delay(10)
+	pygame.time.delay(5)
 
 	if not paused: 
 		game.updateBoardState()
