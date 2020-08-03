@@ -4,14 +4,14 @@ import GameLogic
 print("Commands:")
 print("--- p -> Pause ---")
 print("--- s -> One step ---")
-print("--- Click cells to edit them ---")
+print("--- Click cells to edit them and press p or s to continue---")
 print("--- Enjoy !! ---")
 
 pygame.init()
 
-size = width, height = 800, 600
+size = width, height = 900, 600
 
-cellSize = 20
+cellSize = 15
 
 cells_x = width // cellSize
 cells_y = height // cellSize
@@ -45,6 +45,7 @@ while True:
 				paused = not paused
 				print("The game is paused, press p to continue") if paused else print("Game running")
 			if event.key == pygame.K_s:
+				print("One step")
 				oneStep = True
 				paused = False
 		if event.type == pygame.MOUSEBUTTONUP:
