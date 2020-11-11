@@ -1,5 +1,6 @@
 import sys, pygame
 import GameLogic
+import GameInitializer
 
 print("Commands:")
 print("--- p -> Pause ---")
@@ -7,14 +8,24 @@ print("--- s -> One step ---")
 print("--- Click cells to edit them and press p or s to continue---")
 print("--- Enjoy !! ---")
 
+gameInitializer = GameInitializer.GameInitializer()
+
+initialParameters = gameInitializer.loadInitParametersGame('caso_grande_setup.json')
+
 pygame.init()
 
-size = width, height = 900, 600
+cellSize = initialParameters['cellSize']
+cells_x = initialParameters['cells_x']
+cells_y = initialParameters['cells_y']
 
-cellSize = 15
+size = width, height = cellSize * cells_x, cellSize * cells_y
 
-cells_x = width // cellSize
-cells_y = height // cellSize
+#cells_x = width // cellSize
+#cells_y = height // cellSize
+
+print("Ancho: " + str(cells_x))
+print("Alto: " + str(cells_y))
+
 
 backgroundColor = 25, 25, 25
 
@@ -28,10 +39,9 @@ paused = True
 oneStep = False
 lastCellClicked = (-1, -1)
 
-
+epochs = 1
 #game loop
 while True:
-
 	if oneStep:
 		paused = True
 		oneStep = False
@@ -45,7 +55,7 @@ while True:
 				paused = not paused
 				print("The game is paused, press p to continue") if paused else print("Game running")
 			if event.key == pygame.K_s:
-				print("One step")
+				#print("One step")
 				oneStep = True
 				paused = False
 		if event.type == pygame.MOUSEBUTTONUP:
@@ -85,7 +95,9 @@ while True:
 
 	pygame.display.flip()
 
-	pygame.time.delay(10)
+	pygame.time.delay(30)
 
-	if not paused: 
+	if not paused:
+		print("Epoch: " + str(epochs))
 		game.updateBoardState()
+		epochs += 1
